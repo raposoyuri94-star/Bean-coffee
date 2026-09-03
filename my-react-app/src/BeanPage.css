@@ -1,0 +1,530 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;1,500&display=swap");
+
+/* Design tokens and global defaults */
+:root {
+  --ink: #25251f;
+  --paper: #f2eee5;
+  --green: #172318;
+  --gold: #c9974d;
+  font-family: "DM Sans", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+p em{
+ font-weight: 500;
+  color: var(--gold);
+}
+body {
+  margin: 0;
+  min-width: 320px;
+   font-weight: 500;
+  
+}
+a {
+  color: inherit;
+}
+.site-shell {
+  overflow: hidden;
+  background: var(--paper);
+  text-align: left;
+}
+
+/* Header and navigation */
+.header {
+  height: 92px;
+  padding: 0 clamp(24px, 5vw, 78px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 10;
+  color: #fff;
+  border-bottom: 1px solid #ffffff33;
+}
+.header > a,
+.footer > a {
+  text-decoration: none;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  font-size: 14px;
+}
+.brand i {
+  font-style: normal;
+  font-weight: 400;
+  opacity: 0.65;
+}
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 3vw, 48px);
+  font-size: 13px;
+}
+.nav a {
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.nav a:hover {
+  opacity: 0.65;
+}
+.nav-cta {
+  border: 1px solid #ffffffa6;
+  padding: 13px 18px;
+  display: flex;
+  gap: 25px;
+}
+.menu-toggle {
+  display: none;
+  background: 0;
+  border: 0;
+  width: 44px;
+  height: 44px;
+  padding: 12px;
+}
+.menu-toggle span {
+  display: block;
+  height: 1px;
+  background: #fff;
+  margin: 7px 0;
+}
+.menu-toggle b {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+/* Hero */
+.hero-section {
+  min-height: 760px;
+  height: 100svh;
+  position: relative;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+.hero-image,
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero-image {
+  object-fit: cover;
+}
+.hero-shade {
+  background:
+    linear-gradient(90deg, #080c08d6 0%, #080c08a1 38%, #080c0814 70%),
+    linear-gradient(0deg, #070a0773, transparent 48%);
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 110px clamp(24px, 8vw, 130px) 70px;
+}
+.eyebrow,
+.section-tag {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 11px;
+  font-weight: 600;
+}
+.eyebrow span {
+  width: 38px;
+  height: 1px;
+  
+}
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+h1,
+h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+h1 {
+  font-size: clamp(58px, 7.4vw, 110px);
+  line-height: 0.92;
+  margin: 36px 0 34px;
+}
+h1 em,
+h2 em,
+.manifesto-text em {
+  font-weight: 500;
+  color: var(--gold);
+}
+.hero-copy {
+  max-width: 500px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #ffffffbd;
+}
+.hero-actions {
+  margin-top: 42px;
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+.button {
+  min-width: 190px;
+  padding: 17px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+.button:hover {
+  transform: translateY(-2px);
+}
+.button-light {
+  background: #f7f4ed;
+  color: var(--ink);
+}
+.button-gold {
+  background: var(--gold);
+  color: var(--green);
+}
+.text-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  border-bottom: 1px solid #ffffff66;
+  padding-bottom: 6px;
+}
+.text-link span {
+  margin-left: 14px;
+}
+.hero-meta {
+  position: absolute;
+  z-index: 1;
+  inset: auto clamp(24px, 5vw, 78px) 28px;
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0.17em;
+  font-size: 9px;
+  color: #ffffff99;
+}
+.scroll-cue {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  font-size: 20px;
+}
+/* Brand story and principles */
+.manifesto {
+  padding: 130px clamp(24px, 9vw, 150px) 110px;
+}
+.section-tag {
+  color: #777064;
+  margin-bottom: 36px;
+}
+.manifesto-text {
+  max-width: 1040px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(38px, 5vw, 72px);
+  line-height: 1.13;
+  letter-spacing: -0.035em;
+  margin-bottom: 100px;
+}
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5vw;
+  border-top: 1px solid #25251f2e;
+  padding-top: 32px;
+}
+.principles article {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 15px;
+}
+.principles strong {
+  color: var(--gold);
+  font-size: 11px;
+}
+.principles h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 23px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.principles p {
+  color: #6c685f;
+  font-size: 14px;
+  line-height: 1.7;
+}
+/* Featured menu */
+.menu-section {
+  background: var(--green);
+  color: #fff;
+  padding: 110px clamp(24px, 9vw, 150px);
+}
+.section-tag.light {
+  color: #ffffff80;
+}
+.menu-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 50px;
+  margin-bottom: 70px;
+}
+.menu-heading h2,
+.visit-section h2 {
+  font-size: clamp(50px, 6vw, 82px);
+  line-height: 1;
+  margin: 0;
+}
+.menu-heading > p {
+  max-width: 360px;
+  color: #ffffff8c;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.menu-list {
+  border-top: 1px solid #ffffff2e;
+  margin-bottom: 46px;
+}
+.menu-item {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  align-items: center;
+  border-bottom: 1px solid #ffffff2e;
+  padding: 26px 0;
+}
+.item-number {
+  color: var(--gold);
+  font-size: 11px;
+}
+.menu-item h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 27px;
+  font-weight: 500;
+  margin: 0 0 6px;
+}
+.menu-item p {
+  margin: 0;
+  color: #ffffff73;
+  font-size: 12px;
+}
+.menu-item strong {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+/* Location and opening hours */
+.visit-section {
+  padding: 115px clamp(24px, 9vw, 150px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8vw;
+  align-items: end;
+}
+.visit-section h2 {
+  color: var(--green);
+  font-size: clamp(46px, 5vw, 72px);
+}
+.visit-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 30px;
+  padding-top: 30px;
+  border-top: 1px solid #25251f2e;
+  align-items: center;
+}
+.visit-details span {
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #888176;
+}
+.visit-details p {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 13px 0 0;
+}
+.round-link {
+  width: 52px;
+  height: 52px;
+  border: 1px solid;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+}
+.footer {
+  display: none;
+}
+/* Footer */
+footer {
+  background: #101711;
+  color: #ffffff8c;
+  padding: 38px clamp(24px, 5vw, 78px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  letter-spacing: 0.09em;
+}
+footer p {
+  margin: 0;
+}
+footer .brand {
+  color: #fff;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+/* Mobile layout */
+@media (max-width: 760px) {
+  .header {
+    height: 74px;
+  }
+  .menu-toggle {
+    display: block;
+    position: relative;
+    z-index: 2;
+  }
+  .nav {
+    display: none;
+    position: absolute;
+    inset: 0;
+    height: 100vh;
+    background: var(--green);
+    padding: 120px 28px;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 30px;
+  }
+  .nav.open {
+    display: flex;
+  }
+  .nav-cta {
+    margin-top: 15px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+  }
+  .hero-section {
+    min-height: 700px;
+  }
+  .hero-image {
+    object-position: 58% center;
+  }
+  .hero-shade {
+    background:
+      linear-gradient(90deg, #080c08d6, #080c0847),
+      linear-gradient(0deg, #070a0799, transparent 55%);
+  }
+  .hero-content {
+    padding-top: 100px;
+  }
+  h1 {
+    font-size: clamp(49px, 15vw, 70px);
+  }
+  .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .hero-meta span:last-child {
+    display: none;
+  }
+  .manifesto {
+    padding-top: 95px;
+  }
+  .manifesto-text {
+    margin-bottom: 65px;
+  }
+  .principles {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .menu-heading,
+  .visit-section {
+    display: block;
+  }
+  .menu-heading > p {
+    margin-top: 30px;
+  }
+  .menu-item {
+    grid-template-columns: 38px 1fr auto;
+  }
+  .menu-item h3 {
+    font-size: 21px;
+  }
+  .visit-details {
+    margin-top: 50px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .round-link {
+    grid-column: 1/-1;
+  }
+  footer {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+}
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
