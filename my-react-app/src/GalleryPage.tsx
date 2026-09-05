@@ -58,7 +58,7 @@ export default function GalleryPage() {
         {photos.map((photo, index) => <figure className="gallery-card" key={photo.src}>
           <button className="gallery-photo" type="button" onClick={() => enlarge(index)} aria-label={`Ampliar fotografia: ${photo.title}`}>
             <img src={photo.src} alt={photo.alt} loading={index === 0 ? 'eager' : 'lazy'} />
-            <span className="gallery-expand" aria-hidden="true">Ampliar ↗</span>
+            <span className="gallery-expand" aria-hidden="true">Ampliar</span>
           </button>
           <figcaption>
             <span className="gallery-label">{photo.label}</span>

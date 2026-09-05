@@ -52,7 +52,7 @@ export default function BeanPage() {
       </section>
       <section className="visit-section" id="visit">
         <div><p className="section-tag">Venha dizer olá</p><h2>Uma boa xícara está<br/>mais perto do que você imagina.</h2></div>
-<div className="visit-details"><div><span>Encontre-nos</span><p>Av. Julius Nyerere 822<br/>Polana, Maputo</p></div><div><span>Horário de funcionamento</span><p>Seg — Sex &nbsp; 07:00—18:00<br/>Sáb — Dom &nbsp; 08:00—16:00</p></div><a className="round-link" href="https://www.google.com/maps/place/Bean+Coffee+Shop/@-25.9731512,32.5921478,17z/data=!3m1!4b1!4m6!3m5!1s0x1ee69b6933216dd9:0x95bfc0bb8ebeae98!8m2!3d-25.973156!4d32.5947227!16s%2Fg%2F11kq3k3dmz?entry=ttu&g_ep=EgoyMDI2MDkwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer" aria-label="Abrir localização no mapa">&#128205;</a></div>
+<div className="visit-details"><div><span>Encontre-nos</span><p>Av. Julius Nyerere 822<br/>Polana, Maputo</p></div><div><span>Horário de funcionamento</span><p>Seg - Sex &nbsp; 07:00-18:00<br/>Sáb - Dom &nbsp; 08:00-16:00</p></div><a className="round-link" href="https://www.google.com/maps/place/Bean+Coffee+Shop/@-25.9731512,32.5921478,17z/data=!3m1!4b1!4m6!3m5!1s0x1ee69b6933216dd9:0x95bfc0bb8ebeae98!8m2!3d-25.973156!4d32.5947227!16s%2Fg%2F11kq3k3dmz?entry=ttu&g_ep=EgoyMDI2MDkwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer" aria-label="Abrir localização no mapa">&#128205;</a></div>
       </section>
     </main>
 <footer><a href="#top"><Brand/></a><p>Bom café. Boa companhia. Maputo.</p><p>© 2026 Bean Maputo</p></footer>
