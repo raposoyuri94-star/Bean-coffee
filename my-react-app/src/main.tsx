@@ -2,9 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import BeanPage from './BeanPage.tsx'
+import GalleryPage from './GalleryPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BeanPage />
+    {window.location.pathname.replace(/\/+$/, '') === '/galeria' ? <GalleryPage /> : <BeanPage />}
   </StrictMode>,
 )

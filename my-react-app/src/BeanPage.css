@@ -16,6 +16,7 @@
 }
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 140px;
 }
 p em{
  font-weight: 500;
@@ -31,7 +32,7 @@ a {
   color: inherit;
 }
 .site-shell {
-  overflow: hidden;
+  overflow: clip;
   background: var(--paper);
   text-align: left;
 }
@@ -43,11 +44,12 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: absolute;
-  inset: 0 0 auto;
+  position: sticky;
+  top: 0;
   z-index: 10;
   color: #fff;
   border-bottom: 1px solid #ffffff33;
+  background: var(--green);
 }
 .header > a,
 .footer > a {
@@ -438,7 +440,7 @@ button:focus-visible {
   }
   .nav {
     display: none;
-    position: absolute;
+    position: sticky;
     inset: 0;
     height: 100vh;
     background: var(--green);
@@ -516,6 +518,7 @@ button:focus-visible {
     gap: 20px;
     text-align: center;
   }
+  background: var(--green);
 }
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
