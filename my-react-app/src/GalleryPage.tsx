@@ -29,7 +29,7 @@ export default function GalleryPage() {
   const enlarge = (index: number) => {
     setSelected(index)
     dialog.current?.showModal()
-   
+    document.body.style.overflow = 'hidden'
   }
   const close = () => dialog.current?.close()
 
