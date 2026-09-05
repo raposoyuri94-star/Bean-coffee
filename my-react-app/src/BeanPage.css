@@ -440,7 +440,7 @@ button:focus-visible {
   }
   .nav {
     display: none;
-    position: sticky;
+    position: absolute;
     inset: 0;
     height: 100vh;
     background: var(--green);
@@ -518,7 +518,6 @@ button:focus-visible {
     gap: 20px;
     text-align: center;
   }
-  background: var(--green);
 }
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
