@@ -2,9 +2,13 @@ import { useState } from 'react'
 import './BeanPage.css'
 
 const drinks = [
-  ['Maputo Cortado', 'Double espresso · steamed milk', '220 MT'],
-  ['Coconut Cold Brew', 'Cold brew · coconut cream', '260 MT'],
-  ['Honey Cinnamon Latte', 'Espresso · local honey · cinnamon', '250 MT'],
+  ['Americano', 'Expresso duplo c/ água quente', '200 MT'],
+  ['Hot chocolate', 'chocolate preto c/ creme de leite e chantilly', '200MT'],
+  ['Expresso', 'Blend Brasil/ Uganda 100% arábica', '260 MT'], // Descafeinado 130MT
+  ['Cappucino', 'Expresso duplo c/ 1/2 creme de leite', '250 MT'],
+  ['Macchiato', 'Expresso simples c/ creme de leite', '150 MT'],
+  ['Flat white', 'Expresso duplo c/ 1/3 creme de leite', '190MT'],
+  ['Café latte', 'Expresso simples c/ creme de leite', '250 MT'],
 ]
 
 function BeanIcon() {
