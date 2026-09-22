@@ -740,3 +740,16 @@ button:focus-visible {
 .hero-section .hero-meta {
   color: #fff;
 }
+/* Only the selected slide determines the menu's vertical space. */
+.menu-categories {
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+.menu-category[data-active="false"] {
+  height: 0;
+  overflow: hidden;
+}
+.menu-category > .menu-subcategory:last-child .menu-list,
+.menu-category > .menu-list:last-child {
+  margin-bottom: 0;
+}

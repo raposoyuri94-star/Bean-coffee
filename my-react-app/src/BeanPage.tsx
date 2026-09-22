@@ -207,7 +207,7 @@ export default function BeanPage() {
             const menu = event.currentTarget
             setMenuCategory(Math.round(menu.scrollLeft / menu.clientWidth))
           }}>
-          {menuCategories.map(category => <section className="menu-category" id={'menu-' + category.id} key={category.id} aria-labelledby={'heading-' + category.id}>
+          {menuCategories.map((category, index) => <section className="menu-category" data-active={menuCategory === index} aria-hidden={menuCategory !== index} id={'menu-' + category.id} key={category.id} aria-labelledby={'heading-' + category.id}>
             <h3 className="menu-category-title" id={'heading-' + category.id}>{category.name}</h3>
             {category.groups ? category.groups.map((group, index) => <section className="menu-subcategory" key={group.name} aria-labelledby={category.id + '-group-' + index}>
               <h4 className="menu-subcategory-title" id={category.id + '-group-' + index}>{group.name}</h4>
