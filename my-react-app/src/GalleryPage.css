@@ -52,3 +52,4 @@
 @media (prefers-reduced-motion: reduce) {
   .gallery-page *, .gallery-page *::before, .gallery-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto; }
 }
+.gallery-card-landscape .gallery-photo img { aspect-ratio: 3 / 2; }

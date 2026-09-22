@@ -8,6 +8,8 @@ const photos = [
   { src: '/bean-photo-1-enhanced.png', alt: 'Duas pessoas seguram bebidas verdes sobre uma mesa de madeira', title: 'Melhor em boa companhia.', caption: 'Dois sabores, uma mesa e tempo para conversar.', label: '02 / PARTILHA' },
   { src: '/bean-photo-2-enhanced.png', alt: 'Café com desenho de um gato na espuma, colher e prato de madeira', title: 'Arte em cada chávena.', caption: 'Os pequenos detalhes tornam a pausa especial.', label: '03 / DETALHES' },
   { src: '/bean-photo-3-enhanced.png', alt: 'Balcão Bean com máquina de café, chávenas e prateleiras iluminadas', title: 'O nosso cantinho.', caption: 'Um espaço acolhedor para o seu próximo café.', label: '04 / O NOSSO ESPAÇO' },
+  { src: '/bean-cafe-enhanced.png', alt: 'Entrada do Bean com placa da marca, plantas suspensas e balcão de café', title: 'Entre e sinta-se em casa.', caption: 'Um recanto verde para saborear o seu café.', label: '05 / BEM-VINDO', landscape: true },
+  { src: '/bean-team-enhanced.png', alt: 'Quatro membros da equipa Bean à entrada do café', title: 'Quem dá vida ao Bean.', caption: 'A nossa equipa, sempre pronta para receber.', label: '06 / A NOSSA EQUIPA', landscape: true },
 ]
 
 export default function GalleryPage() {
@@ -55,7 +57,7 @@ export default function GalleryPage() {
         </div>
       </section>
       <section className="gallery-grid" id="fotografias" aria-label="Fotografias Bean">
-        {photos.map((photo, index) => <figure className="gallery-card" key={photo.src}>
+        {photos.map((photo, index) => <figure className={photo.landscape ? 'gallery-card gallery-card-landscape' : 'gallery-card'} key={photo.src}>
           <button className="gallery-photo" type="button" onClick={() => enlarge(index)} aria-label={`Ampliar fotografia: ${photo.title}`}>
             <img src={photo.src} alt={photo.alt} loading={index === 0 ? 'eager' : 'lazy'} />
             <span className="gallery-expand" aria-hidden="true">Ampliar</span>
