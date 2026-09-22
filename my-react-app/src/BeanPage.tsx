@@ -14,14 +14,14 @@ const menuCategories: MenuCategory[] = [
     name: 'Bebidas',
     groups: [
       { name: 'Café', items: [
-  ['Americano', 'Expresso duplo c/ água quente', '200 MT'],
-  ['Hot chocolate', 'chocolate preto c/ creme de leite e chantilly', '200MT'],
-  ['Expresso', 'Blend Brasil/ Uganda 100% arábica', '260 MT'],
+  ['Americano', 'Expresso duplo com água quente', '200 MT'],
+  ['Hot chocolate', 'chocolate preto com creme de leite e chantilly', '200 MT'],
+  ['Expresso', 'Blend Brasil/Uganda 100% arábica', '260 MT'],
   ['Expresso descafeinado', 'Opção sem cafeína', '130 MT'],
-  ['Cappucino', 'Expresso duplo c/ 1/2 creme de leite', '250 MT'],
-  ['Macchiato', 'Expresso simples c/ creme de leite', '150 MT'],
-  ['Flat white', 'Expresso duplo c/ 1/3 creme de leite', '190MT'],
-  ['Café latte', 'Expresso simples c/ creme de leite', '250 MT'],
+  ['Cappuccino', 'Expresso duplo com 1/2 creme de leite', '250 MT'],
+  ['Macchiato', 'Expresso simples com creme de leite', '150 MT'],
+  ['Flat white', 'Expresso duplo com 1/3 creme de leite', '190 MT'],
+  ['Café latte', 'Expresso simples com creme de leite', '250 MT'],
       ] },
        { name: 'Chá natural', items: [
       ['Balacate','', '180 MT'],
@@ -29,10 +29,10 @@ const menuCategories: MenuCategory[] = [
       ['Matcha', '', '200 MT'],
       ['Ginger', '', '200 MT'],
     ] },
-    { name: 'Chá saqueta', items: [
-      ['Roiboss','', '120 MT'],
+    { name: 'Chá de saqueta', items: [
+      ['Rooibos','', '120 MT'],
       ['Verde', '', '180 MT'],
-      ['Frutos Vermelhos', '', '200 MT'],
+      ['Frutos vermelhos', '', '200 MT'],
     ] },
     
       { name: 'Bebidas frias', items: [
@@ -41,9 +41,9 @@ const menuCategories: MenuCategory[] = [
        ['Água das pedras', 'Tangerina, frutos vermelhos, limão', '150 MT'],
     ] },
     { name: 'Soft drinks', items: [
-      ['Tónica zero ', '',  '100 MT'],
+      ['Tónica zero', '',  '100 MT'],
       ['Sprite zero', '', '120 MT'],
-      ['Coca-cola zero', '', '120 MT'],
+      ['Coca-Cola Zero', '', '120 MT'],
     ] },
     ],
   },
@@ -52,21 +52,45 @@ const menuCategories: MenuCategory[] = [
     name: 'Pequeno-almoço',
     groups: [
       { name: 'Healthy toast', items: [
-        ['Tostas de abacate ', 'Pão multigrãos tostado com abacate e rúcula', '430MT'],
-        ['Tostas de abacate e ovos de codorniz', 'Pão multigrãos tostado, abacate, ovos de cordoniz escalfados e rúcula', '4300MT'],
-        ['Tostas de abacate e frango', 'Pão multigrãos tostado, abacate, peito de frango, molho de iogurte, rúcula ', '600MT'],
-        ['Tostas de salmão fumado e queijo cottage', 'Pão integral tostado, queijo cottage, salmão fumado e rúcula ', '850MT'],
-        ['Tostas de salmão e abacate', 'Pão integral tostado, abacate,salmão fumado e rúcula ', '850MT'],
+        ['Tostas de abacate', 'Pão multigrãos tostado, abacate e rúcula', '430 MT'],
+        ['Tostas de abacate e ovos de codorniz', 'Pão multigrãos tostado, abacate, ovos de codorniz escalfados e rúcula', '530 MT'],
+        ['Tostas de abacate e frango', 'Pão multigrãos tostado, abacate, peito de frango, molho de iogurte e rúcula', '600 MT'],
+        ['Tostas de salmão fumado e queijo cottage', 'Pão integral tostado, queijo cottage, salmão fumado e rúcula', '850 MT'],
+        ['Tostas de salmão fumado e abacate', 'Pão integral tostado, abacate, salmão fumado e rúcula', '850 MT'],
+        ['Extra ovo escalfado', '', '130 MT'],
       ] },
-      { name: 'Tostas', items: [
-        // Exemplo: ajuste ao seu menu.
-        ['Croissant de queijo', 'Croissant com queijo derretido', '200 MT'],
+      { name: 'Toasties e mais!', items: [
+        ['Bean grilled cheese', 'Pão caseiro tostado, cheddar branco, cheddar amarelo, parmesão, cebola caramelizada e tomate', '500 MT'],
+        ['Bean grilled cheese com chouriço', 'Pão caseiro tostado, chouriço, cheddar branco, cheddar amarelo, parmesão, cebola caramelizada e tomate', '600 MT'],
+        ['Bean tosta mista', 'Pão caseiro tostado, fiambre e cheddar branco. Opção halal disponível com mortadela de peru.', '530 MT'],
+        ['Croissant com omelete', 'Croissant francês com recheio de omelete e rúcula', '370 MT'],
+        ['Croissant misto', 'Croissant francês com recheio de fiambre, queijo cheddar, tomate e rúcula. Pode ser servido prensado. Opção halal disponível com mortadela de peru.', '440 MT'],
+        ['Sandes mista', 'Bola de avó com recheio de fiambre, queijo cheddar, tomate e alface. Opção halal disponível com mortadela de peru.', '250 MT'],
+        ['Sandes caprese', 'Bola de avó com recheio de peito de frango, molho pesto, tomate e mozzarella. Contém alho e castanha.', '350 MT'],
+        ['Prego Bean', 'O prego à maneira Bean! Filete de boi temperado, servido em pão de hot dog com molho de mostarda e vinho branco', '570 MT'],
+        ['Extra chips de batata', '', '80 MT'],
       ] },
       { name: 'Egg lovers', items: [
-        // ['Nome', 'Descrição', 'Preço'],
+        ['French omelete', 'Omelete francesa simples', '350 MT'],
+        ['Omelete de vegetais', 'Omelete francesa com tomate, espinafre e feta', '450 MT'],
+        ['Omelete mista', 'Omelete francesa com fiambre, cheddar branco e parmesão. Opção halal disponível com mortadela de peru.', '470 MT'],
+        ['Omelete de chouriço e parmesão', 'Omelete francesa com chouriço, cheddar branco e parmesão', '470 MT'],
       ] },
       { name: 'Sweet', items: [
-        // ['Nome', 'Descrição', 'Preço'],
+        ['Granola bowl', 'Granola, iogurte double cream e frutas vermelhas. Contém amendoim e castanha de caju.', '550 MT'],
+        ['Croissant francês', '', '170 MT'],
+        ['Croissant Paris', 'Croissant francês, geleia de morango e manteiga', '300 MT'],
+        ['Crêpes Suzette', 'Crêpes franceses com molho de laranja e manteiga', '450 MT'],
+        ['Crêpes de Nutella', 'Crêpes franceses com recheio de Nutella', '450 MT'],
+        ['Salada de fruta', 'Maçã, banana, papaia, laranja, hortelã e mel', '400 MT'],
+        ['Banana bread', 'Bolo de banana tostado', '250 MT'],
+        ['Brownie Bean', 'O verdadeiro brownie de chocolate duplo! Contém castanha de caju.', '280 MT'],
+        ['Tarte de limão', 'Tarte de limão francesa', '350 MT'],
+        ['Bolo fundente de chocolate', '', '400 MT'],
+        ['Mini bolos', 'Mini muffin de chocolate e manteiga de amendoim', '100 MT'],
+        ['Cookies', 'Cookies com chocolate 70% de cacau', '100 MT'],
+        ['Healthy apple cake', 'Bolo de maçã saudável', '250 MT'],
+        ['Cake de limão', 'Bolo de limão servido com queijo creme', '300 MT'],
       ] },
     ],
   },
@@ -75,29 +99,46 @@ const menuCategories: MenuCategory[] = [
     name: 'Almoço',
     groups: [
       { name: 'Entradas', items: [
-        // ['Nome', 'Descrição', 'Preço'],
+        ['Ceviche de atum', 'Atum cru temperado em molho de azeite e limão, leite de coco, abacate, pepino, cenoura e ervas frescas', '750 MT'],
+        ['Salada de caranguejo', 'Caranguejo desfiado, molho de leite de coco, azeite e limão, abacate, pepino e ervas frescas', '750 MT'],
+        ['Guacamole', 'Puré de abacate com temperos, nachos, palitos de cenoura e pepino', '400 MT'],
+        ['Húmus', 'Pasta de grão-de-bico, tostas de pão árabe, palitos de pepino e cenoura', '400 MT'],
       ] },
       { name: 'Saladas keto', items: [
-        // ['Nome', 'Descrição', 'Preço'],
+        ['Salada de salmão fumado', 'Salada de alface e rúcula, salmão fumado, abacate, tomate, pepino, molho de vinagre balsâmico e azeite', '900 MT'],
+        ['Salada de frango', 'Salada de alface e rúcula, peito de frango, ovo cozido malpassado, abacate, tomate, pepino, molho vinagrete, molho de iogurte e sementes', '700 MT'],
+        ['Salada de vegetais com húmus ou feta', 'Salada de alface e rúcula, abóbora assada, tomate-cereja assado, abacate, tomate, pepino, molho vinagrete, sementes e escolha de húmus ou feta', '700 MT'],
       ] },
       { name: 'Bread', items: [
-        // ['Nome', 'Descrição', 'Preço'],
+        ['Chicken olé olé', 'Pão pita tostado e recheado com peito de frango, salada de tomate e pepino, molho de iogurte, pimento assado, cebola caramelizada, abacate e ervas frescas', '750 MT'],
+        ['Vegan Luckystar', 'Pão pita tostado recheado com abóbora assada, pimento assado, tomate-cereja assado, húmus, rúcula e cebola caramelizada', '700 MT'],
       ] },
       { name: 'Nourishing bowls', items: [
-        // ['Nome', 'Descrição', 'Preço'],
+        ['Tuna poke bowl', 'Sushi bowl composto de atum cru, arroz branco, pepino, abacate, algas e molho de soja', '900 MT'],
+        ['Crab poke bowl', 'Sushi bowl composto de caranguejo desfiado, arroz branco, pepino, abacate, papaia, algas e molho de soja', '900 MT'],
+        ['Chicken pasta salad', 'Salada fria de massa orzo (massa grega), peito de frango, molho pesto (contém alho e castanha de caju), tomate, pimento assado, feta e azeitonas', '760 MT'],
+        ['Salada balinesa de frango', 'Salada de massa de arroz e peito de frango desfiado, raspa de cenoura, molho de limão e coentro. Contém óleo de coco.', '700 MT'],
+        ['Salada balinesa de caranguejo', 'Salada de massa de arroz e caranguejo, raspa de cenoura, molho de limão e coentro. Contém óleo de coco.', '900 MT'],
+        ['Olé bowl', 'Bowl composto de peito de frango, arroz branco, salada de tomate, pimento assado, abacate e crème fraîche', '700 MT'],
+        ['Quinoa bowl', 'Salada de quinoa, tomate, pepino, ervas frescas, húmus de pimento assado e rúcula', '760 MT'],
+        ['Mil-folhas de lentilhas', 'Salada de lentilhas, tomate e abacate, tostas de batata-doce e creme de queijo', '670 MT'],
       ] },
       { name: 'Sugestão de tapas', items: [
-        // ['Nome', 'Descrição', 'Preço'],
+        ['Nachos de atum', 'Chips de tortilha com topping de tártaro de atum asiático e abacate', '750 MT'],
+        ['Nachos de caranguejo', 'Chips de tortilha com topping de caranguejo desfiado e abacate', '750 MT'],
+        ['Salmon bites', 'Mini torradas de salmão fumado e queijo cottage (5 peças)', '750 MT'],
+        ['Presunto e torradas', 'Presunto fatiado acompanhado de torradas de pão e puré de tomate. Contém alho.', '500 MT'],
+        ['Tacos de frango', 'Cestinho com recheio de frango desfiado, pimento assado, abacate, tomate, cebola caramelizada e molho de iogurte (4 peças)', '500 MT'],
+        ['Húmus', 'Pasta de grão-de-bico, tostas de pão árabe, palitos de pepino e cenoura', '400 MT'],
+        ['Guacamole', 'Puré de abacate com temperos, nachos, palitos de cenoura e pepino', '400 MT'],
       ] },
     ],
   },
-
-
 ]
 
 function MenuItems({ items }: { items: string[][] }) {
   return <div className="menu-list">
-    {items.length ? items.map((item, i) => <article className="menu-item" key={item[0]}>
+    {items.length ? items.map((item, i) => <article className="menu-item" key={`${item[0]}-${item[1]}`}>
       <span className="item-number">{String(i + 1).padStart(2, '0')}</span>
       <div><h4>{item[0]}</h4><p>{item[1]}</p></div>
       <strong>{item[2]}</strong>
@@ -137,7 +178,7 @@ export default function BeanPage() {
       <section className="hero-section">
         <img className="hero-image" src="/bean-hero-clean.png" alt="Bean Maputo takeaway coffee and bag" fetchPriority="high"/><div className="hero-shade"/>
         <div className="hero-content">
-          <p className="eyebrow"><span/>Cofee memories in Maputo</p>
+          <p className="eyebrow"><span/>Coffee memories in Maputo</p>
           <h1>Comece o seu dia bem<br/><em>logo ao amanhecer</em></h1>
           <p className="hero-copy"><em>Manhãs calmas, café honesto e o ritmo acolhedor da nossa cidade. Venha pelo café. Fique pela sensação.</em></p>
           <div className="hero-actions"><a className="button button-light" href="#menu">Explore o nosso menu<span></span></a><a className="text-link" href="#story">Descobra a nossa história <span></span></a></div>
@@ -145,7 +186,7 @@ export default function BeanPage() {
         <div className="hero-meta"><span>MAPUTO, MOÇAMBIQUE</span><span>-25.9644° S · 32.5992° E</span></div><a className="scroll-cue" href="#story" aria-label="Scroll to our story">↓</a>
       </section>
       <section className="manifesto" id="story">
-        <p className="section-tag">Nossa filosofia</p><p className="manifesto-text">O café deve ser como um abraço quentinho  em uma xícara.</p>
+        <p className="section-tag">Nossa filosofia</p><p className="manifesto-text">O café deve ser como um abraço quentinho em uma xícara.</p>
         <div className="principles">
           <article><strong>01</strong><div><h3>Localmente fundamentado</h3><p>Nascido em Maputo, moldado pelo seu calor, pelas suas cores e pela sua energia irresistível.</p></div></article>
           <article><strong>02</strong><div><h3>Cuidadosamente selecionado</h3><p>Grãos selecionados com cuidado, respeitando as pessoas e os lugares por trás de cada colheita.</p></div></article>
@@ -174,6 +215,13 @@ export default function BeanPage() {
             </section>) : <MenuItems items={category.items ?? []} />}
           </section>)}
         </div>
+        <aside className="menu-notes" aria-labelledby="menu-notes-title">
+          <h3 id="menu-notes-title">À sua medida</h3>
+          <div className="menu-notes-content">
+            <p>Alguns dos nossos pratos contêm ervas aromáticas, cebolinha, pimenta ou cebola roxa. <strong>Tem alguma alergia ou prefere evitar algum ingrediente?</strong> Por favor, informe o empregado de mesa antes de pedir.</p>
+            <p className="menu-notes-extras"><span>Extras</span> Consulte os preços com o empregado de mesa antes de pedir.</p>
+          </div>
+        </aside>
         <a className="button button-gold" href="https://wa.me/258123456?text=Coffee%20order">Start an order</a>
       </section>
       <section className="visit-section" id="visit">
