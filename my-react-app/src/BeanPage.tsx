@@ -276,8 +276,17 @@ export default function BeanPage() {
     })
     return () => motion.revert()
   }, [menuCategory])
-  const suppressPhotoClick = useRef(false)
-  const swipeStart = useRef<{ x: number; y: number; category: number; dragging: boolean } | null>(null)
+  const touchCategory = useRef<number | null>(null)
+  useLayoutEffect(() => {
+    const menu = menuRef.current
+    const active = menu?.children[menuCategory] as HTMLElement | undefined
+    if (!menu || !active) return
+    const updateHeight = () => { menu.style.height = `${active.offsetHeight}px` }
+    updateHeight()
+    const observer = new ResizeObserver(updateHeight)
+    observer.observe(active)
+    return () => observer.disconnect()
+  }, [menuCategory])
   useEffect(() => {
     const menu = menuRef.current
     if (!menu) return
@@ -286,6 +295,7 @@ export default function BeanPage() {
     let resetTimer: ReturnType<typeof setTimeout>
     const onWheel = (event: WheelEvent) => {
       if (event.ctrlKey || Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return
+      touchCategory.current = null
       event.preventDefault()
       clearTimeout(resetTimer)
       resetTimer = setTimeout(() => { distance = 0; consumed = false }, 250)
@@ -304,6 +314,7 @@ export default function BeanPage() {
     return () => { menu.removeEventListener('wheel', onWheel); clearTimeout(resetTimer) }
   }, [])
   const slideMenu = (index: number) => {
+    touchCategory.current = null
     const menu = menuRef.current
     if (!menu) return
     menu.scrollTo({
@@ -355,54 +366,23 @@ export default function BeanPage() {
         </div>
         <p className="menu-category-hint">Deslize para explorar as categorias.</p>
         <div className="menu-categories" ref={menuRef} role="region" aria-label="Secções do menu" tabIndex={0} onKeyDown={event => { if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.preventDefault(); slideMenu(Math.max(0, Math.min(menuCategories.length - 1, menuCategory + (event.key === 'ArrowRight' ? 1 : -1)))) } }}
-          onPointerDown={event => {
-            if (!event.isPrimary || event.button !== 0) return
-            suppressPhotoClick.current = false
-            swipeStart.current = { x: event.clientX, y: event.clientY, category: menuCategory, dragging: false }
-            if (!(event.target as HTMLElement).closest('button')) event.currentTarget.setPointerCapture(event.pointerId)
-          }}
-          onPointerMove={event => {
-            const start = swipeStart.current
-            if (!start) return
-            const dx = start.x - event.clientX
-            const dy = start.y - event.clientY
-            if (!start.dragging && (Math.abs(dx) < 8 || Math.abs(dx) <= Math.abs(dy))) return
-            const menu = event.currentTarget
-            if (!start.dragging) {
-              start.dragging = true
-              suppressPhotoClick.current = true
-              menu.style.height = `${menu.clientHeight}px`
-              menu.dataset.dragging = 'true'
-              menu.setPointerCapture(event.pointerId)
+          onTouchStart={event => {
+            if (event.touches.length === 1) {
+              touchCategory.current = Math.round(event.currentTarget.scrollLeft / event.currentTarget.clientWidth)
             }
-            const distance = Math.max(-menu.clientWidth, Math.min(menu.clientWidth, dx))
-            menu.scrollLeft = start.category * menu.clientWidth + distance
-          }}
-          onPointerCancel={event => {
-            const start = swipeStart.current
-            swipeStart.current = null
-            delete event.currentTarget.dataset.dragging
-            event.currentTarget.style.height = ''
-            if (start?.dragging) slideMenu(start.category)
-          }}
-          onPointerUp={event => {
-            const start = swipeStart.current
-            swipeStart.current = null
-            if (!start) return
-            const distance = start.x - event.clientX
-            delete event.currentTarget.dataset.dragging
-            event.currentTarget.style.height = ''
-            if (!start.dragging) return
-            const direction = Math.abs(distance) >= 35 ? Math.sign(distance) : 0
-            suppressPhotoClick.current = true
-            slideMenu(Math.max(0, Math.min(menuCategories.length - 1, start.category + direction)))
-          }}
-          onClickCapture={event => {
-            if (suppressPhotoClick.current) { event.preventDefault(); event.stopPropagation(); suppressPhotoClick.current = false }
           }}
           onScroll={event => {
             const menu = event.currentTarget
-            if (!swipeStart.current?.dragging) setMenuCategory(Math.round(menu.scrollLeft / menu.clientWidth))
+            const start = touchCategory.current
+            if (start !== null) {
+              const minimum = Math.max(0, start - 1) * menu.clientWidth
+              const maximum = Math.min(menuCategories.length - 1, start + 1) * menu.clientWidth
+              const bounded = Math.max(minimum, Math.min(maximum, menu.scrollLeft))
+              if (Math.abs(bounded - menu.scrollLeft) > 1) {
+                menu.scrollTo({ left: bounded, behavior: 'instant' })
+              }
+            }
+            setMenuCategory(Math.max(0, Math.min(menuCategories.length - 1, Math.round(menu.scrollLeft / menu.clientWidth))))
           }}>
           {menuCategories.map((category, index) => <section className="menu-category" data-active={menuCategory === index} aria-hidden={menuCategory !== index} id={'menu-' + category.id} key={category.id} aria-labelledby={'heading-' + category.id}>
             <h3 className="menu-category-title" id={'heading-' + category.id}>{category.name}</h3>
