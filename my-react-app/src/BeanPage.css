@@ -1,12 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap");
 
 /* Design tokens and global defaults */
 :root {
+  --header-height: 92px;
+  --content-gutter: max(24px, calc((100% - 1280px) / 2));
   --ink: #25251f;
   --paper: #f2eee5;
   --green: #172318;
   --gold: #c9974d;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Source Sans 3", Arial, sans-serif;
   color: var(--ink);
   background: var(--paper);
   font-synthesis: none;
@@ -16,11 +18,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 140px;
-}
-p em{
- font-weight: 500;
-  color: var(--gold);
+  scroll-padding-top: calc(var(--header-height) + 16px);
 }
 body {
   margin: 0;
@@ -39,8 +37,8 @@ a {
 
 /* Header and navigation */
 .header {
-  height: 92px;
-  padding: 0 clamp(24px, 5vw, 78px);
+  height: var(--header-height);
+  padding: 0 max(24px, calc((100% - 1440px) / 2));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -123,8 +121,8 @@ a {
 }
 /* Hero */
 .hero-section {
-  min-height: 760px;
-  height: 100svh;
+  min-height: 680px;
+  height: min(900px, calc(100svh - var(--header-height)));
   position: relative;
   color: #fff;
   display: flex;
@@ -148,8 +146,9 @@ a {
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 800px;
-  padding: 110px clamp(24px, 8vw, 130px) 70px;
+  width: min(760px, calc(100% - 48px));
+  margin-inline-start: var(--content-gutter);
+  padding: 80px 0;
 }
 .eyebrow,
 .section-tag {
@@ -157,7 +156,7 @@ a {
   align-items: center;
   gap: 14px;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.1em;
   font-size: 11px;
   font-weight: 600;
 }
@@ -174,20 +173,14 @@ p {
 }
 h1,
 h2 {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Libre Franklin", Arial, sans-serif;
   font-weight: 500;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
 }
 h1 {
-  font-size: clamp(58px, 7.4vw, 110px);
-  line-height: 0.92;
+  font-size: clamp(58px, 6vw, 88px);
+  line-height: 1.08;
   margin: 36px 0 34px;
-}
-h1 em,
-h2 em,
-.manifesto-text em {
-  font-weight: 500;
-  color: var(--gold);
 }
 .hero-copy {
   max-width: 500px;
@@ -262,7 +255,7 @@ h2 em,
 }
 /* Brand story and principles */
 .manifesto {
-  padding: 130px clamp(24px, 9vw, 150px) 110px;
+  padding: 110px var(--content-gutter);
 }
 .section-tag {
   color: #777064;
@@ -270,16 +263,16 @@ h2 em,
 }
 .manifesto-text {
   max-width: 1040px;
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Libre Franklin", Arial, sans-serif;
   font-size: clamp(38px, 5vw, 72px);
   line-height: 1.13;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   margin-bottom: 100px;
 }
 .principles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 5vw;
+  gap: clamp(24px, 4vw, 64px);
   border-top: 1px solid #25251f2e;
   padding-top: 32px;
 }
@@ -293,7 +286,7 @@ h2 em,
   font-size: 11px;
 }
 .principles h3 {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Libre Franklin", Arial, sans-serif;
   font-size: 23px;
   font-weight: 500;
   margin-bottom: 14px;
@@ -307,7 +300,7 @@ h2 em,
 .menu-section {
   background: var(--green);
   color: #fff;
-  padding: 110px clamp(24px, 9vw, 150px);
+  padding: 110px var(--content-gutter);
 }
 .section-tag.light {
   color: #ffffff80;
@@ -337,17 +330,17 @@ h2 em,
 }
 .menu-item {
   display: grid;
-  grid-template-columns: 70px 1fr auto;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
   align-items: center;
   border-bottom: 1px solid #ffffff2e;
   padding: 26px 0;
 }
 .item-number {
-  color: var(--gold);
+  color: #ffffff80;
   font-size: 11px;
 }
 .menu-item h4 {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Libre Franklin", Arial, sans-serif;
   font-size: 27px;
   font-weight: 500;
   margin: 0 0 6px;
@@ -358,16 +351,18 @@ h2 em,
   font-size: 12px;
 }
 .menu-item strong {
+  white-space: nowrap;
+  margin-inline-start: 16px;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.08em;
 }
 /* Location and opening hours */
 .visit-section {
-  padding: 115px clamp(24px, 9vw, 150px);
+  padding: 110px var(--content-gutter);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8vw;
+  gap: clamp(32px, 5vw, 80px);
   align-items: end;
 }
 .visit-section h2 {
@@ -389,7 +384,7 @@ h2 em,
   color: #888176;
 }
 .visit-details p {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Libre Franklin", Arial, sans-serif;
   font-size: 15px;
   line-height: 1.7;
   margin: 13px 0 0;
@@ -428,11 +423,9 @@ button:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 4px;
 }
-/* Mobile layout */
-@media (max-width: 760px) {
-  .header {
-    height: 74px;
-  }
+/* Collapsible navigation for phones and tablets, including landscape iPads. */
+@media (max-width: 1180px), (pointer: coarse) and (max-width: 1366px) {
+  :root { --header-height: 74px; }
   .menu-toggle {
     display: block;
     position: relative;
@@ -442,12 +435,13 @@ button:focus-visible {
     display: none;
     position: absolute;
     inset: 0;
-    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
     background: var(--green);
     padding: 120px 28px;
     flex-direction: column;
     align-items: flex-start;
-    font-family: "Playfair Display", Georgia, serif;
+    font-family: "Libre Franklin", Arial, sans-serif;
     font-size: 30px;
   }
   .nav.open {
@@ -455,9 +449,12 @@ button:focus-visible {
   }
   .nav-cta {
     margin-top: 15px;
-    font-family: "DM Sans", sans-serif;
+    font-family: "Source Sans 3", Arial, sans-serif;
     font-size: 13px;
   }
+}
+/* Phone content layout */
+@media (max-width: 760px) {
   .hero-section {
     min-height: 700px;
   }
@@ -602,6 +599,7 @@ button:focus-visible {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  touch-action: pan-y pinch-zoom;
   scroll-padding: 0;
   overscroll-behavior-x: contain;
   scrollbar-color: var(--gold) var(--green);
@@ -611,12 +609,13 @@ button:focus-visible {
   flex: 0 0 100%;
   min-width: 0;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 .menu-category-title {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Libre Franklin", Arial, sans-serif;
   font-size: 30px;
   font-weight: 500;
-  color: var(--gold);
+  color: var(--paper);
   margin-bottom: 24px;
 }
 .menu-category .menu-item p { color: #ffffffb3; }
@@ -627,7 +626,7 @@ button:focus-visible {
 .menu-subcategory-title {
   margin: 28px 0 16px;
   color: var(--paper);
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Libre Franklin", Arial, sans-serif;
   font-size: 24px;
   font-weight: 500;
 }
@@ -647,8 +646,8 @@ button:focus-visible {
 }
 .menu-notes h3 {
   margin: 0;
-  color: var(--gold);
-  font-family: "Playfair Display", Georgia, serif;
+  color: var(--paper);
+  font-family: "Libre Franklin", Arial, sans-serif;
   font-size: clamp(25px, 3vw, 32px);
   font-weight: 500;
   line-height: 1.2;
@@ -675,7 +674,7 @@ button:focus-visible {
 }
 .menu-notes-extras span {
   margin-inline-end: 10px;
-  color: var(--gold);
+  color: var(--paper);
   font-weight: 600;
 }
 @media (max-width: 600px) {
@@ -790,7 +789,7 @@ button:focus-visible {
   height: 18px;
   background: #ffffff66;
 }
-@media (max-width: 760px) {
+@media (max-width: 1180px), (pointer: coarse) and (max-width: 1366px) {
   .nav > a:not(.nav-cta) {
     width: 100%;
   }
@@ -802,3 +801,88 @@ button:focus-visible {
     height: 1px;
   }
 }
+
+@media (min-width: 761px) and (max-width: 1100px) {
+  .menu-heading { align-items: start; flex-direction: column; gap: 24px; }
+  .visit-section { grid-template-columns: 1fr; }
+}
+.menu-item p { max-width: 80ch; line-height: 1.6; }
+
+/* Keep the food menu visible without opening the navigation. */
+.mobile-menu-link { display: none; }
+@media (max-width: 1180px), (pointer: coarse) and (max-width: 1366px) {
+  .header { gap: 8px; }
+  .mobile-menu-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-height: 44px;
+    margin-inline-start: auto;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: var(--gold);
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    position: relative;
+    z-index: 2;
+  }
+  .mobile-menu-link:hover { background: #dfb36f; }
+  .menu-toggle { flex-shrink: 0; }
+}
+@media (max-width: 380px) {
+  .header .brand i { display: none; }
+}
+
+/* Mask each headline phrase during the entrance without changing its wrapping. */
+.hero-line { display: block; overflow: clip; padding-bottom: .12em; margin-bottom: -.12em; }
+.hero-line > span { display: block; }
+.menu-category-controls button {
+  transition: background-color .25s ease, color .25s ease;
+}
+.menu-toggle span { transition: transform .25s ease; }
+.menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
+@media (prefers-reduced-motion: no-preference) {
+  .button, .mobile-menu-link { transition: transform .2s ease, background-color .2s ease, box-shadow .2s ease; }
+  .button:active, .mobile-menu-link:active { transform: translateY(1px); }
+  .mobile-menu-link:hover { box-shadow: 0 4px 16px #00000026; }
+}
+
+/* Keep the printed-menu typography within the food and drinks section. */
+.menu-section,
+.menu-section h2,
+.menu-section h3,
+.menu-section h4 {
+  font-family: "Times New Roman", Times, serif;
+}
+.menu-item-with-photo {
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  column-gap: 20px;
+}
+.menu-item-photo {
+  display: block;
+  width: 96px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+@media (max-width: 600px) {
+  .menu-item-with-photo {
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    column-gap: 12px;
+  }
+  .menu-item-photo { width: 64px; height: 80px; }
+  .menu-item-with-photo strong { margin-inline-start: 0; }
+}
+
+.menu-photo-button { position: relative; padding: 0; border: 0; background: transparent; cursor: zoom-in; justify-self: start; }
+.menu-photo-button span { position: absolute; bottom: 4px; left: 4px; right: 4px; background: #172318e6; color: #fff; padding: 3px; font: 11px "Source Sans 3", Arial, sans-serif; }
+.menu-photo-dialog { width: min(760px, 94vw); max-height: 94dvh; padding: 0; border: 1px solid #ffffff33; background: var(--green); color: var(--paper); }
+.menu-photo-dialog::backdrop { background: #000c; }
+.menu-photo-viewer { padding: 16px; }
+.menu-photo-viewer button { display: block; margin: 0 0 12px auto; min-height: 44px; padding: 8px 16px; border: 1px solid #ffffff66; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.menu-photo-viewer img { display: block; width: 100%; height: min(70dvh, 760px); object-fit: contain; }
+.menu-photo-viewer p { margin: 12px 0 0; text-align: center; font-size: 14px; }

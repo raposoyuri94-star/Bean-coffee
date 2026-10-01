@@ -50,7 +50,7 @@ export default function GalleryPage() {
     <main id="gallery-main">
       <section className="gallery-intro" aria-labelledby="gallery-title">
         <p className="section-tag">O NOSSO ÁLBUM / MAPUTO</p>
-        <h1 id="gallery-title">Pequenos momentos.<br /><em>Boas memórias.</em></h1>
+        <h1 id="gallery-title">Pequenos momentos.<br />Boas memórias.</h1>
         <div className="gallery-intro-bottom">
           <p>Um olhar sobre o universo Bean. Café, detalhes e momentos que apetece guardar.</p>
           <a href="#fotografias">Explore a galeria <span aria-hidden="true">↓</span></a>
@@ -71,7 +71,7 @@ export default function GalleryPage() {
       </section>
       <section className="gallery-invitation">
         <p className="section-tag">DA FOTOGRAFIA À SUA PRÓXIMA PAUSA</p>
-        <h2>O próximo momento<br /><em>pode ser seu.</em></h2>
+        <h2>O próximo momento<br />pode ser seu.</h2>
         <a className="button button-gold" href="/#visit">Venha conhecer-nos </a>
       </section>
     </main>

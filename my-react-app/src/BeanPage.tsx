@@ -1,10 +1,14 @@
-import { useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './BeanPage.css'
 
 
 
 // Adicione itens como ['Nome', 'Descrição', 'Preço'] em items.
 // Em cada secção, cada grupo tem a sua própria lista items.
+gsap.registerPlugin(ScrollTrigger)
+
 type MenuGroup = { name: string; items: string[][] }
 type MenuCategory = { id: string; name: string; items?: string[][]; groups?: MenuGroup[] }
 
@@ -136,14 +140,61 @@ const menuCategories: MenuCategory[] = [
   },
 ]
 
-function MenuItems({ items }: { items: string[][] }) {
+type MenuPhoto = { src: string; alt: string }
+// Each available photo appears once; other dishes keep their numbered layout.
+// These are representative café photos, not verified photographs of every recipe.
+const menuPhotoAssignments: Record<string, Record<string, MenuPhoto>> = {
+  bebidas: {
+    'Café latte': { src: '/bean-photo-0-enhanced.png', alt: 'Café servido num copo com chantilly' },
+    Cappuccino: { src: '/bean-photo-2-enhanced.png', alt: 'Café com desenho de um gato na espuma' },
+    Matcha: { src: '/bean-photo-1-enhanced.png', alt: 'Bebidas de matcha servidas no Bean' },
+  },
+  'pequeno-almoco': {
+    'Sandes caprese': { src: '/bean-menu-sandwiches.png', alt: 'Sandes servidas no Bean' },
+  },
+  almoco: {
+    'Tuna poke bowl': { src: '/bean-menu-bowl.png', alt: 'Bowl com arroz e abacate' },
+  },
+}
+const itemPhotos = new Map(menuCategories.flatMap(category =>
+  (category.groups?.flatMap(group => group.items) ?? category.items ?? [])
+    .flatMap(item => {
+      const photo = menuPhotoAssignments[category.id]?.[item[0]]
+      return photo ? [[item, photo] as const] : []
+    }),
+))
+function MenuItems({ items, onPhotoClick }: { items: string[][]; onPhotoClick: (photo: MenuPhoto) => void }) {
   return <div className="menu-list">
-    {items.length ? items.map((item, i) => <article className="menu-item" key={`${item[0]}-${item[1]}`}>
-      <span className="item-number">{String(i + 1).padStart(2, '0')}</span>
-      <div><h4>{item[0]}</h4><p>{item[1]}</p></div>
-      <strong>{item[2]}</strong>
-    </article>) : <p className="menu-category-empty">Novidades em breve.</p>}
+    {items.length ? items.map((item, i) => {
+      const photo = itemPhotos.get(item)
+      return <article className={photo ? 'menu-item menu-item-with-photo' : 'menu-item'} key={`${item[0]}-${item[1]}`}>
+        {photo ? <button className="menu-photo-button" type="button" onClick={() => onPhotoClick(photo)} aria-label={`Ampliar fotografia: ${photo.alt}`}>
+          <img className="menu-item-photo" src={photo.src} alt={photo.alt} loading="lazy" decoding="async" draggable={false} />
+          <span aria-hidden="true">Ampliar</span>
+        </button> : <span className="item-number">{String(i + 1).padStart(2, '0')}</span>}
+        <div><h4>{item[0]}</h4><p>{item[1]}</p></div>
+        <strong>{item[2]}</strong>
+      </article>
+    }) : <p className="menu-category-empty">Novidades em breve.</p>}
   </div>
+}
+function MenuPhotoViewer({ photo, onClose }: { photo: MenuPhoto; onClose: () => void }) {
+  const dialog = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    const element = dialog.current
+    const previousOverflow = document.body.style.overflow
+    element?.showModal()
+    document.body.style.overflow = 'hidden'
+    return () => { element?.close(); document.body.style.overflow = previousOverflow }
+  }, [])
+  return <dialog ref={dialog} className="menu-photo-dialog" aria-label="Fotografia do menu" onClose={event => { if (!event.currentTarget.open) onClose() }}
+    onClick={event => { if (event.target === event.currentTarget) dialog.current?.close() }}>
+    <div className="menu-photo-viewer">
+      <button type="button" onClick={() => dialog.current?.close()}>Fechar ×</button>
+      <img src={photo.src} alt={photo.alt} />
+      <p>{photo.alt}</p>
+    </div>
+  </dialog>
 }
 function BeanIcon() {
   return <img src="/Bean Logo.jpg" alt="" aria-hidden="true" />
@@ -154,10 +205,91 @@ function Brand() {
 }
 
 export default function BeanPage() {
+  const [selectedPhoto, setSelectedPhoto] = useState<MenuPhoto | null>(null)
+  const pageRef = useRef<HTMLDivElement>(null)
+  useLayoutEffect(() => {
+    const page = pageRef.current
+    if (!page) return
+    const motion = gsap.matchMedia()
+    motion.add('(prefers-reduced-motion: no-preference)', () => {
+      const intro = gsap.timeline({ defaults: { ease: 'power3.out', clearProps: 'transform,opacity,visibility' } })
+      intro.from('.hero-image', { opacity: 0.65, duration: 1.6 }, 0)
+        .from('.hero-content .eyebrow', { y: 12, autoAlpha: 0, duration: 0.65 }, 0.1)
+        .from('.hero-line > span', { yPercent: 110, duration: 1.15, stagger: 0.16 }, 0.2)
+        .from('.hero-copy', { y: 18, autoAlpha: 0, duration: 0.8 }, 0.65)
+        .from('.hero-actions > a', { y: 14, autoAlpha: 0, duration: 0.7, stagger: 0.12 }, 0.85)
+        .from('.hero-meta', { autoAlpha: 0, duration: 0.8 }, 1)
+      gsap.utils.toArray<HTMLElement>([
+        '.manifesto > .section-tag', '.manifesto-text',
+        '.menu-heading', '.menu-notes', '.visit-section > div',
+      ], page).forEach(element => {
+        gsap.from(element, {
+          y: 24, autoAlpha: 0, duration: 0.9, ease: 'power3.out',
+          clearProps: 'transform,opacity,visibility',
+          scrollTrigger: { trigger: element, start: 'top 90%', once: true },
+        })
+      })
+      const principles = gsap.utils.toArray<HTMLElement>('.principles article', page)
+      principles.forEach((element, index) => {
+        gsap.from(element, {
+          y: 24, autoAlpha: 0, duration: 0.8,
+          delay: window.innerWidth > 760 ? index * 0.12 : 0,
+          ease: 'power3.out', clearProps: 'transform,opacity,visibility',
+          scrollTrigger: { trigger: element, start: 'top 92%', once: true },
+        })
+      })
+      // Menu categories have different heights; keep later reveal positions accurate.
+      const observer = new ResizeObserver(() => ScrollTrigger.refresh())
+      const menu = page.querySelector('.menu-categories')
+      if (menu) observer.observe(menu)
+      let active = true
+      void document.fonts.ready.then(() => { if (active) ScrollTrigger.refresh() })
+      return () => { active = false; observer.disconnect() }
+    }, page)
+    return () => motion.revert()
+  }, [])
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const [menuCategory, setMenuCategory] = useState(0)
+  useLayoutEffect(() => {
+    const motion = gsap.matchMedia()
+    motion.add('(prefers-reduced-motion: no-preference)', () => {
+      const category = menuRef.current?.querySelector('[data-active="true"]')
+      if (!category) return
+      gsap.from(category.querySelectorAll('.menu-category-title, .menu-subcategory:first-of-type'), {
+        opacity: 0, y: 10, duration: 0.4, stagger: 0.06,
+        ease: 'power2.out', clearProps: 'transform,opacity',
+      })
+    })
+    return () => motion.revert()
+  }, [menuCategory])
+  const swipeStart = useRef<{ x: number; y: number; category: number } | null>(null)
+  useEffect(() => {
+    const menu = menuRef.current
+    if (!menu) return
+    let distance = 0
+    let consumed = false
+    let resetTimer: ReturnType<typeof setTimeout>
+    const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return
+      event.preventDefault()
+      clearTimeout(resetTimer)
+      resetTimer = setTimeout(() => { distance = 0; consumed = false }, 250)
+      if (consumed) return
+      distance += event.deltaX * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? menu.clientWidth : 1)
+      if (Math.abs(distance) < 35) return
+      consumed = true
+      const current = Math.round(menu.scrollLeft / menu.clientWidth)
+      const next = Math.max(0, Math.min(menuCategories.length - 1, current + Math.sign(distance)))
+      menu.scrollTo({
+        left: next * menu.clientWidth,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+      })
+    }
+    menu.addEventListener('wheel', onWheel, { passive: false })
+    return () => { menu.removeEventListener('wheel', onWheel); clearTimeout(resetTimer) }
+  }, [])
   const slideMenu = (index: number) => {
     const menu = menuRef.current
     if (!menu) return
@@ -166,11 +298,13 @@ export default function BeanPage() {
       behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
     })
   }
-  return <div className="site-shell">
+  return <div className="site-shell" ref={pageRef}>
+    {selectedPhoto && <MenuPhotoViewer photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} />}
     <header className="header">
       <a href="#top" aria-label="Bean Maputo home"><Brand /></a>
+      <a className="mobile-menu-link" href="#menu" onClick={close}>Ver menu</a>
       <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="site-nav" onClick={() => setOpen(!open)}><span/><span/><b>Toggle navigation</b></button>
-      <nav id="site-nav" className={open ? 'nav open' : 'nav'} aria-label="Main navigation">
+      <nav id="site-nav" className={open ? 'nav open' : 'nav'} aria-label="Main navigation" onKeyDown={event => { if (event.key === 'Escape') { close(); document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus() } }}>
         <a href="#story" onClick={close}>Our story</a><a href="#menu" onClick={close}>Menu</a><a href="/galeria" onClick={close}>Galeria</a><a href="#visit" onClick={close}>Visit us</a><a className="nav-cta" href="#menu" onClick={close}>Fazer pedido</a>
       </nav>
     </header>
@@ -179,8 +313,8 @@ export default function BeanPage() {
         <img className="hero-image" src="/bean-hero-clean.png" alt="Bean Maputo takeaway coffee and bag" fetchPriority="high"/><div className="hero-shade"/>
         <div className="hero-content">
           <p className="eyebrow"><span/>Coffee memories in Maputo</p>
-          <h1>Comece o seu dia bem<br/><em>logo ao amanhecer</em></h1>
-          <p className="hero-copy"><em>Manhãs calmas, café honesto e o ritmo acolhedor da nossa cidade. Venha pelo café. Fique pela sensação.</em></p>
+          <h1><span className="hero-line"><span>Comece o seu dia bem</span></span><span className="hero-line"><span>logo ao amanhecer</span></span></h1>
+          <p className="hero-copy">Manhãs calmas, café honesto e o ritmo acolhedor da nossa cidade. Venha pelo café. Fique pela sensação.</p>
           <div className="hero-actions"><a className="button button-light" href="#menu">Explore o nosso menu<span></span></a><a className="text-link" href="#story">Descobra a nossa história <span></span></a></div>
         </div>
         <div className="hero-meta"><span>MAPUTO, MOÇAMBIQUE</span><span>-25.9644° S · 32.5992° E</span></div><a className="scroll-cue" href="#story" aria-label="Scroll to our story">↓</a>
@@ -193,16 +327,30 @@ export default function BeanPage() {
           <article><strong>03</strong><div><h3>Feito com intenção</h3><p>Cada xícara afinada com precisão e servida com a autêntica hospitalidade moçambicana.</p></div></article>
         </div>
       </section>
-      <section className="menu-section" id="menu">
-       <div className="menu-heading"><div><p className="section-tag light">O nosso menu</p><h2>Menu enxuto.<br/><em>Grande personalidade.</em></h2></div><p>Favoritos da casa feitos com grãos cuidadosamente torrados e ingredientes que amamos.</p></div>
-        <div className="menu-category-controls" role="group" aria-label="Categorias do menu">
+      <section className="menu-section">
+       <div className="menu-heading"><div><p className="section-tag light">O nosso menu</p><h2>Menu enxuto.<br/>Grande personalidade.</h2></div><p>Favoritos da casa feitos com grãos cuidadosamente torrados e ingredientes que amamos.</p></div>
+        <div className="menu-category-controls" id="menu" role="group" aria-label="Categorias do menu">
           {menuCategories.map((category, index) => <button
             key={category.id} type="button" aria-pressed={menuCategory === index}
             aria-controls={'menu-' + category.id} onClick={() => slideMenu(index)}
           >{category.name}</button>)}
         </div>
         <p className="menu-category-hint">Deslize para explorar as categorias.</p>
-        <div className="menu-categories" ref={menuRef} role="region" aria-label="Secções do menu" tabIndex={0}
+        <div className="menu-categories" ref={menuRef} role="region" aria-label="Secções do menu" tabIndex={0} onKeyDown={event => { if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.preventDefault(); slideMenu(Math.max(0, Math.min(menuCategories.length - 1, menuCategory + (event.key === 'ArrowRight' ? 1 : -1)))) } }}
+          onPointerDown={event => {
+            if (!event.isPrimary || event.button !== 0 || (event.target as HTMLElement).closest('button')) return
+            swipeStart.current = { x: event.clientX, y: event.clientY, category: menuCategory }
+            event.currentTarget.setPointerCapture(event.pointerId)
+          }}
+          onPointerCancel={() => { swipeStart.current = null }}
+          onPointerUp={event => {
+            const start = swipeStart.current
+            swipeStart.current = null
+            if (!start) return
+            const distance = start.x - event.clientX
+            if (Math.abs(distance) < 40 || Math.abs(distance) <= Math.abs(start.y - event.clientY)) return
+            slideMenu(Math.max(0, Math.min(menuCategories.length - 1, start.category + Math.sign(distance))))
+          }}
           onScroll={event => {
             const menu = event.currentTarget
             setMenuCategory(Math.round(menu.scrollLeft / menu.clientWidth))
@@ -211,8 +359,8 @@ export default function BeanPage() {
             <h3 className="menu-category-title" id={'heading-' + category.id}>{category.name}</h3>
             {category.groups ? category.groups.map((group, index) => <section className="menu-subcategory" key={group.name} aria-labelledby={category.id + '-group-' + index}>
               <h4 className="menu-subcategory-title" id={category.id + '-group-' + index}>{group.name}</h4>
-              <MenuItems items={group.items} />
-            </section>) : <MenuItems items={category.items ?? []} />}
+              <MenuItems items={group.items} onPhotoClick={setSelectedPhoto} />
+            </section>) : <MenuItems items={category.items ?? []} onPhotoClick={setSelectedPhoto} />}
           </section>)}
         </div>
         <aside className="menu-notes" aria-labelledby="menu-notes-title">
