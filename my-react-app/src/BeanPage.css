@@ -886,9 +886,9 @@ button:focus-visible {
 .menu-photo-viewer img { display: block; width: 100%; height: min(70dvh, 760px); object-fit: contain; }
 .menu-photo-viewer p { margin: 12px 0 0; text-align: center; font-size: 14px; }
 
-/* Portrait coffee footage retains its framing beside the desktop headline. */
+/* Fill the hero with the coffee video on every screen size. */
 .hero-section { background: #101711; }
-.hero-video { left: 50%; width: 50%; object-position: center; }
+.hero-video { left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .visit-photo { display: block; width: 100%; height: auto; margin-top: 32px; }
 @media (max-width: 760px) {
   .hero-video { left: 0; width: 100%; object-position: center; }
