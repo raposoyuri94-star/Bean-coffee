@@ -896,3 +896,6 @@ button:focus-visible {
 }
 
 .menu-photo-button { touch-action: pan-y pinch-zoom; }
+
+.menu-categories[data-dragging="true"] { scroll-snap-type: none; scroll-behavior: auto; user-select: none; }
+.menu-categories[data-dragging="true"] .menu-category[data-active="false"] { height: auto; }
