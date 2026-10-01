@@ -324,9 +324,9 @@ export default function BeanPage() {
     <main id="top">
       <section className="hero-section">
         <video ref={heroVideo} className="hero-image hero-video" muted loop playsInline preload="metadata"
-          poster="/bean-hero-video-poster.jpg" aria-hidden="true"
+          poster="/bean-hero-video-poster-hq.jpg" aria-hidden="true"
           >
-          <source src="/bean-hero-coffee.mp4" type="video/mp4" />
+          <source src="/bean-hero-coffee-hq.mp4" type="video/mp4" />
         </video>
         <div className="hero-shade"/>
         <div className="hero-content">
