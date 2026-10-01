@@ -879,10 +879,20 @@ button:focus-visible {
 }
 
 .menu-photo-button { position: relative; padding: 0; border: 0; background: transparent; cursor: zoom-in; justify-self: start; }
-.menu-photo-button span { position: absolute; bottom: 4px; left: 4px; right: 4px; background: #172318e6; color: #fff; padding: 3px; font: 11px "Source Sans 3", Arial, sans-serif; }
 .menu-photo-dialog { width: min(760px, 94vw); max-height: 94dvh; padding: 0; border: 1px solid #ffffff33; background: var(--green); color: var(--paper); }
 .menu-photo-dialog::backdrop { background: #000c; }
 .menu-photo-viewer { padding: 16px; }
 .menu-photo-viewer button { display: block; margin: 0 0 12px auto; min-height: 44px; padding: 8px 16px; border: 1px solid #ffffff66; background: transparent; color: inherit; font: inherit; cursor: pointer; }
 .menu-photo-viewer img { display: block; width: 100%; height: min(70dvh, 760px); object-fit: contain; }
 .menu-photo-viewer p { margin: 12px 0 0; text-align: center; font-size: 14px; }
+
+/* Portrait coffee footage retains its framing beside the desktop headline. */
+.hero-section { background: #101711; }
+.hero-video { left: 50%; width: 50%; object-position: center; }
+.visit-photo { display: block; width: 100%; height: auto; margin-top: 32px; }
+@media (max-width: 760px) {
+  .hero-video { left: 0; width: 100%; object-position: center; }
+  .hero-content { padding-bottom: 120px; }
+}
+
+.menu-photo-button { touch-action: pan-y pinch-zoom; }

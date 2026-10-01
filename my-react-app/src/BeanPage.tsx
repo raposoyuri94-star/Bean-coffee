@@ -170,7 +170,6 @@ function MenuItems({ items, onPhotoClick }: { items: string[][]; onPhotoClick: (
       return <article className={photo ? 'menu-item menu-item-with-photo' : 'menu-item'} key={`${item[0]}-${item[1]}`}>
         {photo ? <button className="menu-photo-button" type="button" onClick={() => onPhotoClick(photo)} aria-label={`Ampliar fotografia: ${photo.alt}`}>
           <img className="menu-item-photo" src={photo.src} alt={photo.alt} loading="lazy" decoding="async" draggable={false} />
-          <span aria-hidden="true">Ampliar</span>
         </button> : <span className="item-number">{String(i + 1).padStart(2, '0')}</span>}
         <div><h4>{item[0]}</h4><p>{item[1]}</p></div>
         <strong>{item[2]}</strong>
@@ -206,6 +205,19 @@ function Brand() {
 
 export default function BeanPage() {
   const [selectedPhoto, setSelectedPhoto] = useState<MenuPhoto | null>(null)
+  const heroVideo = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    const video = heroVideo.current
+    if (!video) return
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const syncMotion = () => {
+      if (motion.matches) video.pause()
+      else void video.play().catch(() => { /* Poster remains visible if autoplay is blocked. */ })
+    }
+    syncMotion()
+    motion.addEventListener('change', syncMotion)
+    return () => { motion.removeEventListener('change', syncMotion); video.pause() }
+  }, [])
   const pageRef = useRef<HTMLDivElement>(null)
   useLayoutEffect(() => {
     const page = pageRef.current
@@ -264,6 +276,7 @@ export default function BeanPage() {
     })
     return () => motion.revert()
   }, [menuCategory])
+  const suppressPhotoClick = useRef(false)
   const swipeStart = useRef<{ x: number; y: number; category: number } | null>(null)
   useEffect(() => {
     const menu = menuRef.current
@@ -310,7 +323,12 @@ export default function BeanPage() {
     </header>
     <main id="top">
       <section className="hero-section">
-        <img className="hero-image" src="/bean-hero-clean.png" alt="Bean Maputo takeaway coffee and bag" fetchPriority="high"/><div className="hero-shade"/>
+        <video ref={heroVideo} className="hero-image hero-video" muted loop playsInline preload="metadata"
+          poster="/bean-hero-video-poster.jpg" aria-hidden="true"
+          >
+          <source src="/bean-hero-coffee.mp4" type="video/mp4" />
+        </video>
+        <div className="hero-shade"/>
         <div className="hero-content">
           <p className="eyebrow"><span/>Coffee memories in Maputo</p>
           <h1><span className="hero-line"><span>Comece o seu dia bem</span></span><span className="hero-line"><span>logo ao amanhecer</span></span></h1>
@@ -338,9 +356,10 @@ export default function BeanPage() {
         <p className="menu-category-hint">Deslize para explorar as categorias.</p>
         <div className="menu-categories" ref={menuRef} role="region" aria-label="Secções do menu" tabIndex={0} onKeyDown={event => { if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.preventDefault(); slideMenu(Math.max(0, Math.min(menuCategories.length - 1, menuCategory + (event.key === 'ArrowRight' ? 1 : -1)))) } }}
           onPointerDown={event => {
-            if (!event.isPrimary || event.button !== 0 || (event.target as HTMLElement).closest('button')) return
+            if (!event.isPrimary || event.button !== 0) return
+            suppressPhotoClick.current = false
             swipeStart.current = { x: event.clientX, y: event.clientY, category: menuCategory }
-            event.currentTarget.setPointerCapture(event.pointerId)
+            if (!(event.target as HTMLElement).closest('button')) event.currentTarget.setPointerCapture(event.pointerId)
           }}
           onPointerCancel={() => { swipeStart.current = null }}
           onPointerUp={event => {
@@ -349,7 +368,11 @@ export default function BeanPage() {
             if (!start) return
             const distance = start.x - event.clientX
             if (Math.abs(distance) < 40 || Math.abs(distance) <= Math.abs(start.y - event.clientY)) return
+            suppressPhotoClick.current = true
             slideMenu(Math.max(0, Math.min(menuCategories.length - 1, start.category + Math.sign(distance))))
+          }}
+          onClickCapture={event => {
+            if (suppressPhotoClick.current) { event.preventDefault(); event.stopPropagation(); suppressPhotoClick.current = false }
           }}
           onScroll={event => {
             const menu = event.currentTarget
@@ -373,7 +396,7 @@ export default function BeanPage() {
         <a className="button button-gold" href="https://wa.me/258123456?text=Coffee%20order">Start an order</a>
       </section>
       <section className="visit-section" id="visit">
-        <div><p className="section-tag">Venha dizer olá</p><h2>Uma boa xícara está<br/>mais perto do que você imagina.</h2></div>
+        <div><p className="section-tag">Venha dizer olá</p><h2>Uma boa xícara está<br/>mais perto do que você imagina.</h2><img className="visit-photo" src="/bean-hero-clean.png" alt="Café para levar e saco Bean Maputo" loading="lazy" decoding="async" /></div>
 <div className="visit-details"><div><span>Encontre-nos</span><p>822 Av. Julius Nyerere<br/>Maputo 0000, Mozambique</p></div><div><span>Horário de funcionamento</span><p>Seg - Sex &nbsp; 07:00-18:00<br/>Sáb - Dom &nbsp; 08:00-16:00</p></div><div className="visit-map"><iframe title="Mapa da Bean Coffee Shop em Maputo" src="https://maps.google.com/maps?q=822%20Av.%20Julius%20Nyerere%2C%20Maputo%BeanCofeeshop%2C%20Mozambique&amp;z=17&amp;output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen /><a href="https://www.google.com/maps/search/?api=1&amp;query=822%20Av.%20Julius%20Nyerere%2C%20Maputo%200000%2C%20Mozambique" target="_blank" rel="noreferrer">Abrir no Google Maps</a></div></div>
       </section>
     </main>
