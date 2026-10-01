@@ -145,15 +145,15 @@ type MenuPhoto = { src: string; alt: string }
 // These are representative café photos, not verified photographs of every recipe.
 const menuPhotoAssignments: Record<string, Record<string, MenuPhoto>> = {
   bebidas: {
-    'Café latte': { src: '/bean-photo-0-enhanced.png', alt: 'Café servido num copo com chantilly' },
-    Cappuccino: { src: '/bean-photo-2-enhanced.png', alt: 'Café com desenho de um gato na espuma' },
-    Matcha: { src: '/bean-photo-1-enhanced.png', alt: 'Bebidas de matcha servidas no Bean' },
+    'Café latte': { src: import.meta.env.BASE_URL + "bean-photo-0-enhanced.png", alt: 'Café servido num copo com chantilly' },
+    Cappuccino: { src: import.meta.env.BASE_URL + "bean-photo-2-enhanced.png", alt: 'Café com desenho de um gato na espuma' },
+    Matcha: { src: import.meta.env.BASE_URL + "bean-photo-1-enhanced.png", alt: 'Bebidas de matcha servidas no Bean' },
   },
   'pequeno-almoco': {
-    'Sandes caprese': { src: '/bean-menu-sandwiches.png', alt: 'Sandes servidas no Bean' },
+    'Sandes caprese': { src: import.meta.env.BASE_URL + "bean-menu-sandwiches.png", alt: 'Sandes servidas no Bean' },
   },
   almoco: {
-    'Tuna poke bowl': { src: '/bean-menu-bowl.png', alt: 'Bowl com arroz e abacate' },
+    'Tuna poke bowl': { src: import.meta.env.BASE_URL + "bean-menu-bowl.png", alt: 'Bowl com arroz e abacate' },
   },
 }
 const itemPhotos = new Map(menuCategories.flatMap(category =>
@@ -196,7 +196,7 @@ function MenuPhotoViewer({ photo, onClose }: { photo: MenuPhoto; onClose: () => 
   </dialog>
 }
 function BeanIcon() {
-  return <img src="/Bean Logo.jpg" alt="" aria-hidden="true" />
+  return <img src={import.meta.env.BASE_URL + "Bean Logo.jpg"} alt="" aria-hidden="true" />
 }
 
 function Brand() {
@@ -329,15 +329,15 @@ export default function BeanPage() {
       <a className="mobile-menu-link" href="#menu" onClick={close}>Ver menu</a>
       <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="site-nav" onClick={() => setOpen(!open)}><span/><span/><b>Toggle navigation</b></button>
       <nav id="site-nav" className={open ? 'nav open' : 'nav'} aria-label="Main navigation" onKeyDown={event => { if (event.key === 'Escape') { close(); document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus() } }}>
-        <a href="#story" onClick={close}>Our story</a><a href="#menu" onClick={close}>Menu</a><a href="/galeria" onClick={close}>Galeria</a><a href="#visit" onClick={close}>Visit us</a><a className="nav-cta" href="#menu" onClick={close}>Fazer pedido</a>
+        <a href="#story" onClick={close}>Our story</a><a href="#menu" onClick={close}>Menu</a><a href={import.meta.env.BASE_URL + "galeria"} onClick={close}>Galeria</a><a href="#visit" onClick={close}>Visit us</a><a className="nav-cta" href="#menu" onClick={close}>Fazer pedido</a>
       </nav>
     </header>
     <main id="top">
       <section className="hero-section">
         <video ref={heroVideo} className="hero-image hero-video" muted loop playsInline preload="metadata"
-          poster="/bean-hero-video-poster-hq.jpg" aria-hidden="true"
+          poster={import.meta.env.BASE_URL + "bean-hero-video-poster-hq.jpg"} aria-hidden="true"
           >
-          <source src="/bean-hero-coffee-hq.mp4" type="video/mp4" />
+          <source src={import.meta.env.BASE_URL + "bean-hero-coffee-hq.mp4"} type="video/mp4" />
         </video>
         <div className="hero-shade"/>
         <div className="hero-content">
@@ -402,7 +402,7 @@ export default function BeanPage() {
         <a className="button button-gold" href="https://wa.me/258123456?text=Coffee%20order">Start an order</a>
       </section>
       <section className="visit-section" id="visit">
-        <div><p className="section-tag">Venha dizer olá</p><h2>Uma boa xícara está<br/>mais perto do que você imagina.</h2><img className="visit-photo" src="/bean-hero-clean.png" alt="Café para levar e saco Bean Maputo" loading="lazy" decoding="async" /></div>
+        <div><p className="section-tag">Venha dizer olá</p><h2>Uma boa xícara está<br/>mais perto do que você imagina.</h2><img className="visit-photo" src={import.meta.env.BASE_URL + "bean-hero-clean.png"} alt="Café para levar e saco Bean Maputo" loading="lazy" decoding="async" /></div>
 <div className="visit-details"><div><span>Encontre-nos</span><p>822 Av. Julius Nyerere<br/>Maputo 0000, Mozambique</p></div><div><span>Horário de funcionamento</span><p>Seg - Sex &nbsp; 07:00-18:00<br/>Sáb - Dom &nbsp; 08:00-16:00</p></div><div className="visit-map"><iframe title="Mapa da Bean Coffee Shop em Maputo" src="https://maps.google.com/maps?q=822%20Av.%20Julius%20Nyerere%2C%20Maputo%BeanCofeeshop%2C%20Mozambique&amp;z=17&amp;output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen /><a href="https://www.google.com/maps/search/?api=1&amp;query=822%20Av.%20Julius%20Nyerere%2C%20Maputo%200000%2C%20Mozambique" target="_blank" rel="noreferrer">Abrir no Google Maps</a></div></div>
       </section>
     </main>
